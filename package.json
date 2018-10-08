@@ -22,7 +22,25 @@
   "homepage": "https://github.com/bongthoi/vivseller#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "bcryptjs": "*",
+    "bootstrap": "^3.3.7",
+    "connect-flash": "*",
+    "cookie-parser": "*",
+    "ejs": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "fs": "*",
+    "moment": "^2.22.2",
+    "nodemon": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "path": "*",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "sweetalert": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
