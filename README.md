@@ -12,5 +12,5 @@
 3. Go into the folder and hit the npm install command
 4. Run the command: npm start
 
-##View Detail at documents/labs folder
+## View Detail at documents/labs folder
 
