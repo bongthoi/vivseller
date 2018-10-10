@@ -102,12 +102,6 @@ class UserRepo {
         });
     };
 
-    comparePassword(password, hash, callback){
-        bcrypt.compare(password, hash, function(err, isMatch){
-            if(err) throw err;
-            callback(null, isMatch);
-        });
-    }
 }
 
 /** */

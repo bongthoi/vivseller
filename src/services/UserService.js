@@ -10,9 +10,7 @@ class UserService{
     constructor(){};
     async getAll(){
         let method="UserService/getAll";
-        console.log(method+ "  -->success");
-        let t=userRepo.hashPassword("aaaa");
-        console.log("Hash="+t);
+        console.log(method+ "  -->start");
         try {
             let result= await userRepo.getAll();
             console.log(method+" -->success");
@@ -26,11 +24,11 @@ class UserService{
 
     async getByID(_UserID){
         let method="UserService/getByID: "+_UserID;
-        console.log(method);
+        console.log(method+ "  -->start");
         try {
             let result=await userRepo.getByID(_UserID);
             console.log(method+" -->success");
-            return result[0];
+            return new User(result[0].username,result[0].password,result[0].FirstName,result[0].LastName,result[0].birthday,result[0].address,result[0].phone,result[0].enabled,result[0].RegisterDate);
         } catch (error) {
             console.log(method+" -->fail");
             return error;
@@ -40,7 +38,7 @@ class UserService{
 
     async insert(_User){
         let method="UserService/insert: "+_User.username;
-        console.log(method+" --start");
+        console.log(method+ " -->start");
         
         try {
             let result=await userRepo.insert(_User);
@@ -54,7 +52,7 @@ class UserService{
 
     async update(_User){
         let method="UserService/update: "+_User.username;
-        console.log(method+" --start");
+        console.log(method+ " -->start");
         
         try {
             let result=await userRepo.update(_User);

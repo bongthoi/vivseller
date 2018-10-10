@@ -1,5 +1,7 @@
 import namespace_config from '../../config/namespace_config.json';
 
+
+/**declare class */
 class User{
     constructor(username,password,firstname,lastname,birthday,address,phone,enabled,registerdate){
         this.$class=namespace_config.namespace+".Seller";
@@ -16,4 +18,5 @@ class User{
     }
 }
 
+/**export module */
 module.exports=User;

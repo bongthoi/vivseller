@@ -72,31 +72,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <table class="table table-hover">
                       <tbody>
                         <tr>
-                          <th>ID</th>
-                          <th>Private Key</th>
-                          <th>Company</th>
-                          <th>Type</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Address</th>
+                          <th>Phone Number</th>
                           <th>Status</th>
-
+                          <th>Operator</th>
                         </tr>
-                        
+                        <%if(user){%>
                           <tr>
                             <td>
-                             
+                             <%=user.firstname%>
                             </td>
                             <td>
-                             
+                             <%=user.lastname%>
                             </td>
                             <td>
-                            
+                            <%=user.address%>
                             </td>
                             <td>
-                             
+                              <%=user.phone%>                             
                             </td>
                             <td><span class="label label-success">Approved</span></td>
-
+                            <td><a href="/private/users/editProfile/<%=user.username%>"><i class="fa fa-edit"></i></a></td>
                           </tr>
-                         
+                      <%}%>
                       </tbody>
                     </table>
                   </div>
