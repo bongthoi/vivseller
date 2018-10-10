@@ -4,11 +4,13 @@ import passport from "passport";
 
 /** */
 import User from '../models/UserModel';
+import Category from '../models/CategoryModel';
 import UserService from '../services/UserService';
-
+import CategoryService from '../services/CategoryService';
 /** */
 let LocalStrategy = require("passport-local").Strategy;
 var userService = new UserService();
+var categoryService=new CategoryService();
 let router = express.Router();
 
 /**public */
@@ -114,10 +116,51 @@ router.post("/private/users/updateProfile",isLoggedIn, async (req,res)=>{
 		res.redirect("/private/users/profile");
 	}	
 });
-/**private/products */
 
+/**private/categories */
+router.get("/private/categories/categoryList",isLoggedIn,async (req,res)=>{
+	let cateList=await categoryService.getAll();
+	res.render("dashboard/categories/category_list",{title:"Category List",categories:cateList});
+});
 
+router.post("/private/categories/insertCategory",isLoggedIn,(req,res)=>{
+	console.log("xx="+JSON.stringify(req.body));
+	let CategoryName=req.body.CategoryName;
+	let CategoryDes=req.body.CategoryDes;
+	let CreateDate=new Date();
+	let UpdateDate=new Date();
+	let CreateUser=(req.session.user).username;
+	let UpdateUser=(req.session.user).username;
+	let enabled=req.body.enabled;
+	let fileUpload=req.files.image;
+	let image_name=Date.now()+fileUpload.name;
+	let image_extension=fileUpload.mimetype.split('/')[1];
+	let CategoryImg=image_name
+	let CategoryOrder=req.body.CategoryOrder;
+	
+	let newCategory=new Category(null,CategoryName,CategoryDes,CreateDate,UpdateDate,CreateUser,UpdateUser,enabled,CategoryImg,CategoryOrder);
+	console.log("xx="+JSON.stringify(newCategory));
+	if(fileUpload.mimetype==='image/png'||fileUpload.mimetype==='image/jpeg'||fileUpload.mimetype==='image/gif'){
+		fileUpload.mv(`public/assets/images/${image_name}`,(error)=>{
+			if(error){
+				return res.status(500).send(error);
+			}
+			let category=categoryService.insert(newCategory);		
+			res.redirect("/private/categories/categoryList");
+		});
+	}	
+});
 
+router.get("/private/categories/deleteCategory/:categoryID",async (req,res)=>{
+	try {
+		let cate=await categoryService.delete(req.params.categoryID);
+		res.redirect("/private/categories/categoryList");
+	} catch (error) {
+		req.flash('success_message', 'Delete fail');
+		res.redirect("/private/categories/categoryList");
+	}
+	
+});
 
 /**passportjs Auth */
 passport.use(new LocalStrategy({

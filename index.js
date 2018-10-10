@@ -6,6 +6,7 @@ import expressValidator from 'express-validator';
 import flash from 'connect-flash';
 import session from 'express-session';
 import passport from 'passport';
+import fileupload from 'express-fileupload';
 
 /** */
 import server_config from './config/server_config.json';
@@ -42,6 +43,7 @@ app.use(passport.session());
 
 app.use(expressValidator());
 app.use(flash());
+app.use(fileupload());
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
