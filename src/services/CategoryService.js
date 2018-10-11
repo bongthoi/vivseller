@@ -46,8 +46,48 @@ class CategoryService{
             return new Error(error);
         }
     }; 
-    getByID(_categoryID){};
-    update(_category){};
+
+    async getByUser(_userID){
+        const method="CategoryService/getByUser()";
+        console.log(method+" -->start");
+
+        try {
+          let result= await categoryRepo.getByUser(_userID);
+          console.log(method+" -->success");
+          return result;  
+        } catch (error) {
+            console.log(method+" -->fail");
+            return new Error(error);
+        }
+    };
+
+   async getByID(_categoryID){
+        const method="CategoryService/getByID()";
+        console.log(method+" -->start");
+
+        try {
+          let result= await categoryRepo.getByID(_categoryID);
+          console.log(method+" -->success");
+          return result;  
+        } catch (error) {
+            console.log(method+" -->fail");
+            return new Error(error);
+        }
+    };
+
+    async update(_category){
+        let method="CategoryService/update";
+        console.log(method+ " -->start");
+        
+        try {
+            let result=await categoryRepo.update(_category);
+            console.log(method+" -->success");
+            return result;
+        } catch (error) {
+            console.log(method+" -->fail");
+            return error;
+        }
+    };
         
 }
 

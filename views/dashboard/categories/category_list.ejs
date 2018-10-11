@@ -23,6 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/dashboard/dist/css/AdminLTE.min.css">
 
   <link rel="stylesheet" href="/dashboard/dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="/assets/css/categorylist.css">
 
 
 </head>
@@ -81,10 +82,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tbody>
                     <tr>
                       <th>ID#</th>
-                      <th>CategoryName</th>
-                      <th>CategoryDes</th>
-                      <th>UpdateUser</th>
-                      <th>CategoryImg</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Creator</th>
+                      <th>Img</th>
                       <th>Priority</th>
                       <th>enabled</th>
                       <th colspan="2">Operator</th>
@@ -95,28 +96,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             stt=stt+1;
                             %>
                             <tr>
-                              <td>
-                                <%=stt%>
-                              </td>
-                              <td>
-                                <%=category.CategoryName%>
-                              </td>
-                              <td>
-                                <%=category.CategoryDes%>
-                              </td>
-                              <td>
-                                <%=category.UpdateUser%>
-                              </td>
-                              <td>
-                                <%=category.CategoryImg%>
-                              </td>
-                              <td>
-                                  <%=category.CategoryOrder%>
-                              </td>                      
-                              <td>
-                                  <%=category.enabled%>
+                              <td><%=stt%></td>
+                              <td><%=category.CategoryName%></td>
+                              <td><%=category.CategoryDes%></td>
+                              <td><%=category.UpdateUser%></td>
+                              <td><img src="/assets/upload/images/<%=category.CategoryImg%>" class="rounded-circle category-img" alt=""></td>
+                              <td><%=category.CategoryOrder%></td>                      
+                              <td>                                  
+                                  <%if(category.enabled==1){%>
+                                    <i class="label label-success">Acitve</i>
+                                  <%}else{%>
+                                    <i class="label label-danger">Disable</i>  
+                                  <%}%>
                                 </td>
-                              <td><a href=""><i class="fa fa-edit"></i></a></td>
+                              <td><a href="/private/categories/updateCategory/<%=category.id%>"><i class="fa fa-edit"></i></a></td>
                               <td><a href="/private/categories/deleteCategory/<%=category.id%>"><i class="fa fa-trash-o"></i></a></td>
                             </tr>
                         <%}%>
@@ -154,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="form-group">
                       <label for="CategoryImg">Image</label>
-                      <input type="file" id="CategoryImg" name="image" placeholder="Image" class="form-control" required>
+                      <input type="file" id="CategoryImg" name="image" placeholder="Image" class="form-control">
                     </div>                    
                     <div class="form-group">
                       <label for="Priority">Priority</label>
@@ -166,7 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <option>5</option>
                       </select>
                     </div>                   
-                    <label class="radio-inline"><input type="radio" name="enabled" value="1" checked><i class="label label-success">Enable</i></label>
+                    <label class="radio-inline"><input type="radio" name="enabled" value="1" checked><i class="label label-success">Active</i></label>
                     <label class="radio-inline"><input type="radio" name="enabled" value="0"><i class="label label-danger">Disable</i></label>
                   </div>
                   <div class="modal-footer">
