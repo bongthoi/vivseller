@@ -126,28 +126,50 @@ router.get("/private/categories/categoryList", isLoggedIn, async (req, res) => {
 });
 
 router.post("/private/categories/insertCategory", isLoggedIn, async (req, res) => {
-	let CategoryName = req.body.CategoryName;
-	let CategoryDes = req.body.CategoryDes;
-	let CreateDate = new Date();
-	let UpdateDate = new Date();
-	let CreateUser = (req.session.user).username;
-	let UpdateUser = (req.session.user).username;
-	let enabled = req.body.enabled;
-	let fileUpload = req.files.image;
-	let image_name = Date.now() + fileUpload.name;
-	let image_extension = fileUpload.mimetype.split('/')[1];
-	let CategoryImg = image_name
-	let CategoryOrder = req.body.CategoryOrder;
+	let flag = req.files.image;
+	if (!flag) {
+		let CategoryName = req.body.CategoryName;
+		let CategoryDes = req.body.CategoryDes;
+		let CreateDate = new Date();
+		let UpdateDate = new Date();
+		let CreateUser = (req.session.user).username;
+		let UpdateUser = (req.session.user).username;
+		let enabled = req.body.enabled;		
+		let CategoryImg = "no_image.jpg"
+		let CategoryOrder = req.body.CategoryOrder;
 
-	let newCategory = new Category(null, CategoryName, CategoryDes, CreateDate, UpdateDate, CreateUser, UpdateUser, enabled, CategoryImg, CategoryOrder);
-	try {
-		await fileUitility.uploadFile(fileUpload, CategoryImg);
-		let category =await categoryService.insert(newCategory);
-		res.redirect("/private/categories/categoryList");
-	} catch (error) {
-		req.flash('error_message', 'You have not changed fail');
-		res.redirect("/private/categories/categoryList");
+		let newCategory = new Category(null, CategoryName, CategoryDes, CreateDate, UpdateDate, CreateUser, UpdateUser, enabled, CategoryImg, CategoryOrder);
+		try {
+			let category = await categoryService.insert(newCategory);
+			res.redirect("/private/categories/categoryList");
+		} catch (error) {
+			req.flash('error_message', 'You have not changed fail');
+			res.redirect("/private/categories/categoryList");
+		}
+	} else {
+		let CategoryName = req.body.CategoryName;
+		let CategoryDes = req.body.CategoryDes;
+		let CreateDate = new Date();
+		let UpdateDate = new Date();
+		let CreateUser = (req.session.user).username;
+		let UpdateUser = (req.session.user).username;
+		let enabled = req.body.enabled;
+		let fileUpload = req.files.image;
+		let image_name = Date.now() + fileUpload.name;
+		let CategoryImg = image_name
+		let CategoryOrder = req.body.CategoryOrder;
+
+		let newCategory = new Category(null, CategoryName, CategoryDes, CreateDate, UpdateDate, CreateUser, UpdateUser, enabled, CategoryImg, CategoryOrder);
+		try {
+			await fileUitility.uploadFile(fileUpload, CategoryImg);
+			let category = await categoryService.insert(newCategory);
+			res.redirect("/private/categories/categoryList");
+		} catch (error) {
+			req.flash('error_message', 'You have not changed fail');
+			res.redirect("/private/categories/categoryList");
+		}
 	}
+
 });
 
 router.get("/private/categories/updateCategory/:categoryID", isLoggedIn, async (req, res) => {
