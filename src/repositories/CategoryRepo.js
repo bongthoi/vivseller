@@ -1,4 +1,4 @@
-import connection from '../utilities/mysqldb_connection';
+import mysqldb_connection from '../utilities/mysqldb_connection';
 
 class CategoryRepo{
     constructor(){};
@@ -7,7 +7,7 @@ class CategoryRepo{
         console.log(method + " -->start");
 
         return new Promise((resolve,reject)=>{
-            connection.query("SELECT * FROM tb_category",(error,result)=>{
+            mysqldb_connection.query("SELECT * FROM tb_category",(error,result)=>{
                 if(error){
                     console.log(method+" -->fail");
                     return reject(error+"");
@@ -24,7 +24,7 @@ class CategoryRepo{
         console.log(method+" -->start");
 
         return new Promise((resolve,reject)=>{
-            connection.query("INSERT INTO tb_category(CategoryName,CategoryDes,CreateDate,UpdateDate,CreateUser,UpdateUser,enabled,CategoryImg,CategoryOrder) VALUES(?,?,?,?,?,?,?,?,?)",[_category.CategoryName,_category.CategoryDes,_category.CreateDate,_category.UpdateDate,_category.CreateUser,_category.UpdateUser,_category.enabled,_category.CategoryImg,_category.CategoryOrder],(error,result)=>{
+            mysqldb_connection.query("INSERT INTO tb_category(CategoryName,CategoryDes,CreateDate,UpdateDate,CreateUser,UpdateUser,enabled,CategoryImg,CategoryOrder) VALUES(?,?,?,?,?,?,?,?,?)",[_category.CategoryName,_category.CategoryDes,_category.CreateDate,_category.UpdateDate,_category.CreateUser,_category.UpdateUser,_category.enabled,_category.CategoryImg,_category.CategoryOrder],(error,result)=>{
                 if(error){
                     console.log(method+" -->fail");
                     return reject(new Error(error));
@@ -41,7 +41,7 @@ class CategoryRepo{
         console.log(method + " -->start");
 
         return new Promise((resolve,reject)=>{
-            connection.query("DELETE FROM tb_category WHERE id=?",[_categoryID],(error,result)=>{
+            mysqldb_connection.query("DELETE FROM tb_category WHERE id=?",[_categoryID],(error,result)=>{
                 if(error){
                     console.log(method+" -->fail");
                     return reject(error+"");
@@ -58,7 +58,7 @@ class CategoryRepo{
         console.log(method + " -->start");
 
         return new Promise((resolve,reject)=>{
-            connection.query("SELECT * FROM tb_category WHERE CreateUser=? ORDER BY CategoryOrder ASC",[_userID],(error,result)=>{
+            mysqldb_connection.query("SELECT * FROM tb_category WHERE CreateUser=? ORDER BY CategoryOrder ASC",[_userID],(error,result)=>{
                 if(error){
                     console.log(method+" -->fail");
                     return reject(error+"");
@@ -75,7 +75,7 @@ class CategoryRepo{
         console.log(method + " -->start");
 
         return new Promise((resolve,reject)=>{
-            connection.query("SELECT * FROM tb_category WHERE id=?",[_categoryID],(error,result)=>{
+            mysqldb_connection.query("SELECT * FROM tb_category WHERE id=?",[_categoryID],(error,result)=>{
                 if(error){
                     console.log(method+" -->fail");
                     return reject(error+"");
@@ -92,7 +92,7 @@ class CategoryRepo{
         console.log(method+" -->start");
 
         return new Promise((resolve,reject)=>{
-            connection.query("UPDATE tb_category SET CategoryName=?,CategoryDes=?,CreateDate=?,UpdateDate=?,CreateUser=?,UpdateUser=?,enabled=?,CategoryImg=?,CategoryOrder=? WHERE id=?",[_category.CategoryName,_category.CategoryDes,_category.CreateDate,_category.UpdateDate,_category.CreateUser,_category.UpdateUser,_category.enabled,_category.CategoryImg,_category.CategoryOrder,_category.id],(error,result)=>{
+            mysqldb_connection.query("UPDATE tb_category SET CategoryName=?,CategoryDes=?,CreateDate=?,UpdateDate=?,CreateUser=?,UpdateUser=?,enabled=?,CategoryImg=?,CategoryOrder=? WHERE id=?",[_category.CategoryName,_category.CategoryDes,_category.CreateDate,_category.UpdateDate,_category.CreateUser,_category.UpdateUser,_category.enabled,_category.CategoryImg,_category.CategoryOrder,_category.id],(error,result)=>{
                 if(error){
                     console.log(method+" -->fail");
                     return reject(new Error(error));

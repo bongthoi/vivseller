@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 /** */
-import connection from '../utilities/mysqldb_connection';
+import mysqldb_connection from '../utilities/mysqldb_connection';
 import Seller from '../models/UserModel';
 
 /** */
@@ -12,7 +12,7 @@ class UserRepo {
         console.log(method + " -->start");
 
         return new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM tb_user", (error, result, fiels) => {
+            mysqldb_connection.query("SELECT * FROM tb_user", (error, result, fiels) => {
                 if (error) {
                     console.log(method + " -->fail");
                     return reject(error + "");
@@ -30,7 +30,7 @@ class UserRepo {
         console.log(method + " -->start");
 
         return new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM tb_user WHERE username=?", [_UserID], (error, result) => {
+            mysqldb_connection.query("SELECT * FROM tb_user WHERE username=?", [_UserID], (error, result) => {
                 if (error) {
                     console.log(method + " -->fail");
                     return reject(error + "");
@@ -49,7 +49,7 @@ class UserRepo {
         return new Promise((resolve, reject) => {
             bcrypt.genSalt(10, function (err, salt) {
                 bcrypt.hash(_User.password, salt, function (err, hash) {
-                    connection.query("INSERT INTO tb_user(username,password,FirstName,LastName,birthday,address,phone,enabled,RegisterDate) VALUES(?,?,?,?,?,?,?,?,?)", [_User.username, hash, _User.firstname, _User.lastname, _User.birthday, _User.address, _User.phone, _User.enabled, _User.registerdate], (error, result) => {
+                    mysqldb_connection.query("INSERT INTO tb_user(username,password,FirstName,LastName,birthday,address,phone,enabled,RegisterDate) VALUES(?,?,?,?,?,?,?,?,?)", [_User.username, hash, _User.firstname, _User.lastname, _User.birthday, _User.address, _User.phone, _User.enabled, _User.registerdate], (error, result) => {
                         if (error) {
                             console.log(method + " -->fail");
                             return reject(error + "");
@@ -71,7 +71,7 @@ class UserRepo {
         return new Promise((resolve, reject) => {
             bcrypt.genSalt(10, function (err, salt) {
                 bcrypt.hash(_User.password, salt, function (err, hash) {
-                    connection.query("UPDATE tb_user SET password=?,FirstName=?,LastName=?,birthday=?,address=?,phone=?,enabled=?,RegisterDate=? WHERE username=?", [hash, _User.firstname, _User.lastname, _User.birthday, _User.address, _User.phone, _User.enabled, _User.registerdate, (_User.username).trim()], (error, result) => {
+                    mysqldb_connection.query("UPDATE tb_user SET password=?,FirstName=?,LastName=?,birthday=?,address=?,phone=?,enabled=?,RegisterDate=? WHERE username=?", [hash, _User.firstname, _User.lastname, _User.birthday, _User.address, _User.phone, _User.enabled, _User.registerdate, (_User.username).trim()], (error, result) => {
                         if (error) {
                             console.log(method + " -->fail");
                             return reject(error + "");
@@ -90,7 +90,7 @@ class UserRepo {
         console.log(method + " -->start");
 
         return new Promise((resolve, reject) => {
-            connection.query("DELETE FROM tb_user WHERE username=?", [_UserID], (error, result) => {
+            mysqldb_connection.query("DELETE FROM tb_user WHERE username=?", [_UserID], (error, result) => {
                 if (error) {
                     console.log(method + " -->fail");
                     return reject(error + "");
