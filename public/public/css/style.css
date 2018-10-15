@@ -3659,3 +3659,6 @@ header {
 .registration-form-content.registration-pg-one .registration-form.registration-pg-one button {
     margin-bottom: 30px;
 }
+.logo{
+    height: 95px!important;
+}

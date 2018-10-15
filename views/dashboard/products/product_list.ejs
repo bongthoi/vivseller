@@ -52,7 +52,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!-- Main content -->
           <section class="content">
-
+            <%include ../partials/errors%>
             <!-- Your Page Content Here -->
             <div class="row">
               <div class="col-xs-12">
@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <th>Name</th>
                           <th>Image</th>
                           <th>Unit</th>
-                          <th>Cost Price</th>
+                          <th>Price</th>
                           <th>Quantity</th>
                           <th>Category</th>
                           <th>Priority</th>
@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               <%=stt%>
                             </td>
                             <td>
-                              <a href="/private/products/getByID/<%=product.id%>"><%=product.name%></a>
+                              <a href="/private/products/product_detail/<%=product.id%>"><%=product.name%></a>
                             </td>
                             <td><img src="/assets/upload/images/<%=product.image%>" class="rounded-circle category-img" alt=""></td>
                             <td>

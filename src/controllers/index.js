@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from "passport";
-
+import moment from 'moment';
 
 /** */
 import FileUitility from '../utilities/FileUitility';
@@ -141,6 +141,13 @@ router.post("/private/categories/insertCategory", isLoggedIn, async (req, res) =
 		let enabled = req.body.enabled;
 		let CategoryImg = "no_image.jpg";
 		let CategoryOrder = req.body.CategoryOrder;
+
+		/**validation errors */
+		req.checkBody('CategoryName',"Name is required.").isEmpty();
+		let errors=req.validationErrors();
+		if(errors){
+			console.log("Errors="+JSON.stringify(errors));
+		};
 
 		let newCategory = new Category(null, CategoryName, CategoryDes, CreateDate, UpdateDate, CreateUser, UpdateUser, enabled, CategoryImg, CategoryOrder);
 		try {
@@ -408,11 +415,12 @@ router.post("/private/products/search",async (req,res)=>{
 	}
 });
 
-router.get("/private/products/getByID/:productID",isLoggedIn, async (req, res) => {
+router.get("/private/products/product_detail/:productID",isLoggedIn, async (req, res) => {
 	try {
 		let product = await productService.getByID(req.params.productID);
-
-		res.redirect("/private/products/getBySellerID");
+		let cateList = await categoryService.getByUser((req.session.user).username);
+		
+		res.render("dashboard/products/product_detail",{title:"Product Detail",moment:moment,product:product,categories:cateList});
 	} catch (error) {
 		req.flash("error_message", "getByID fail");
 		res.redirect("/private/products/getBySellerID");
