@@ -78,8 +78,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </div>                                            
                                             <ul class="col-md-8">
                                                 <li><strong>Name</strong>: <%=product.name%></li>
-                                                <li><strong>Unit Price</strong>: <%=product.cost_price%></li>                                                
-                                                <li><strong>Quantity</strong>:<%=product.quantity%></li>
+                                                <li><strong>Price</strong>: <%=product.cost_price%></li>                                                
+                                                <li><strong>Quantity</strong>:<%=product.quantity%> </li>
+                                                <li><strong>Unit</strong>: (<strong><%=product.unit%></strong>)</li>                                                
                                                 <li><strong>Dated</strong>: <%=moment(product.createDate).format("YYYY-MM-DD HH:mm:ss")%></li>
                                                 <li><strong>Priority</strong>:<%=product.priority%> </li>
                                                 <li>
@@ -111,8 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <!-- /.box -->
                             </div>
-                        </div>
-
+                        </div>                       
                     </section>
                     <!-- /.content -->
                 </div>
@@ -125,6 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        immediately after the control sidebar -->
                     <div class="control-sidebar-bg"></div>
     </div>
+   
     <!-- ./wrapper -->
 
     <!-- REQUIRED JS SCRIPTS -->

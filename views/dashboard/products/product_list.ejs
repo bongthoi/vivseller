@@ -92,10 +92,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <tr>
                           <th>ID#</th>
                           <th>Name</th>
-                          <th>Image</th>
-                          <th>Unit</th>
+                          <th>Image</th>                          
                           <th>Price</th>
                           <th>Quantity</th>
+                          <th>Unit</th>
                           <th>Category</th>
                           <th>Priority</th>
                           <th>Enabled</th>
@@ -114,14 +114,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               <a href="/private/products/product_detail/<%=product.id%>"><%=product.name%></a>
                             </td>
                             <td><img src="/assets/upload/images/<%=product.image%>" class="rounded-circle category-img" alt=""></td>
-                            <td>
-                              <%=product.unit%>
-                            </td>
+                            
                             <td>
                               <%=product.cost_price%>
                             </td>
                             <td>
                               <%=product.quantity%>
+                            </td>
+                            <td>
+                              <%=product.unit%>
                             </td>
                             <td>
                               <%if(categories.length>0){
@@ -159,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                  <form action="/private/products/insert" method="POST" enctype="multipart/form-data" id="addProduct">
+                  <form action="/private/products/insert" method="POST" enctype="multipart/form-data" id="addProduct" class="needs-validation" novalidate>
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
@@ -188,11 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form-group">
                           <label for="image">Image</label>
                           <input type="file" id="image" name="image" placeholder="Image" class="form-control" autofocus>
-                        </div>
-                        <div class="form-group">
-                          <label for="unit">Unit</label>
-                          <input type="text" id="unit" name="unit" placeholder="Unit" class="form-control">
-                        </div>
+                        </div>                        
                         <div class="form-group">
                           <label for="price">Price</label>
                           <input type="text" id="price" name="cost_price" placeholder="Price" class="form-control">
@@ -201,6 +198,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <label for="quantity">Quantity</label>
                           <input type="text" id="quantity" name="quantity" placeholder="Quanity" class="form-control">
                         </div>
+                        <div class="form-group">
+                          <label for="unit">Unit</label>
+                          <select class="form-control" name="unit" id="unit">
+                            <option value="GLO">GLO</option>                            
+                          </select>
+                        </div>                        
                         <div class="form-group">
                           <label for="description">Description</label>
                           <textarea id="description" name="description" class="form-control" rows="5" placeholder="Description"></textarea>

@@ -402,7 +402,7 @@ router.post("/private/products/update/:productID",isLoggedIn, async (req, res) =
 	}
 });
 
-router.post("/private/products/search",async (req,res)=>{
+router.post("/private/products/search",isLoggedIn,async (req,res)=>{
 	try {
 		let cateID=req.body.categoryIDSearch;
 		let cateList = await categoryService.getByUser((req.session.user).username);
@@ -424,6 +424,65 @@ router.get("/private/products/product_detail/:productID",isLoggedIn, async (req,
 	} catch (error) {
 		req.flash("error_message", "getByID fail");
 		res.redirect("/private/products/getBySellerID");
+	}
+});
+
+router.get("/private/products/product_statistic",isLoggedIn,async (req,res)=>{
+	try {
+		let cateList = await categoryService.getByUser((req.session.user).username);
+		let productList = await productService.getBySellerID((req.session.user).username);
+
+		var chartQtyData = [["statistic", "quyantity"]];
+		var chartMoneyData = [["statistic", "money"]];
+		for (let product of productList) {
+			chartQtyData.push([product.name, product.quantity]);
+			chartMoneyData.push([product.name, product.quantity*product.cost_price]);
+		}
+
+		res.render("dashboard/products/product_statistic", { title: "Product Statistic", products: productList, categories: cateList , chartQtyData: JSON.stringify(chartQtyData), chartMoneyData: JSON.stringify(chartMoneyData)});
+	} catch (error) {
+		req.flash("error_message", "Product Statistic fail");
+		res.render("dashboard/products/product_statistic", { title: "Product Statistic" });
+	}
+});
+
+router.post("/private/products/product_statistic",isLoggedIn,async (req,res)=>{
+	try {
+		let cateID=req.body.categoryIDSearch;
+		let cateList = await categoryService.getByUser((req.session.user).username);
+		let productList = await productService.getBySellerIDandCategoryID((req.session.user).username,cateID);
+
+		var chartQtyData = [["statistic", "quyantity"]];
+		var chartMoneyData = [["statistic", "money"]];
+		for (let product of productList) {
+			chartQtyData.push([product.name, product.quantity]);
+			chartMoneyData.push([product.name, product.quantity*product.cost_price]);
+		}
+		let data=await categoryService.inventory((req.session.user).username);
+		console.log("inventory="+JSON.stringify(data));
+		res.render("dashboard/products/product_statistic", { title: "Product Statistic", products: productList, categories: cateList , chartQtyData: JSON.stringify(chartQtyData), chartMoneyData: JSON.stringify(chartMoneyData)});		
+	} catch (error) {
+		req.flash("error_message", "Product Statistic fail");
+		res.render("dashboard/products/product_statistic", { title: "Product Statistic" });
+	}
+});
+
+
+router.get("/private/products/inventory",isLoggedIn,async (req,res)=>{
+	try {
+		let categories = await categoryService.inventory((req.session.user).username);
+
+		var chartQtyData = [["statistic", "quyantity"]];
+		var chartMoneyData = [["statistic", "money"]];
+		for (let category of categories) {
+			chartQtyData.push([category[1], category[3]]);
+			chartMoneyData.push([category[1], category[4]]);
+		}
+
+		res.render("dashboard/categories/category_inventory", { title: "Inventory by Catetories",categories: categories , chartQtyData: JSON.stringify(chartQtyData), chartMoneyData: JSON.stringify(chartMoneyData)});
+	} catch (error) {
+		req.flash("error_message", " Inventory fail");
+		res.render("dashboard/categories/category_inventory", { title: "Inventory by Catetories" });
 	}
 });
 

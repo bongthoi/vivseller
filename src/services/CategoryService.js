@@ -1,7 +1,9 @@
 import CategoryRepo from '../repositories/CategoryRepo';
+import ProductRepo from '../repositories/ProductRepo';
 
 /** */
 var categoryRepo=new CategoryRepo();
+var productRepo=new ProductRepo();
 
 class CategoryService{
     constructor(){};
@@ -88,6 +90,35 @@ class CategoryService{
             return error;
         }
     };
+
+    async inventory(_userID){
+        const method="CategoryService/inventory()";
+        console.log(method+" -->start");
+
+        var catetoryList=[];
+        try {
+          var categories= await categoryRepo.getByUser(_userID);
+          var products=await productRepo.getBySellerID(_userID);
+
+          for(var category of categories){
+            var Qty=0;
+            var Subtotal=0;
+
+            for(var product of products){
+                if(category.id==product.categoryID){
+                    Qty=Qty+product.quantity;        
+                    Subtotal=Subtotal+(product.quantity*product.cost_price);
+                }
+            }
+            catetoryList.push([category.id,category.CategoryName,category.CategoryImg,Qty,Subtotal]);
+          }
+          console.log(method+" -->success");
+          return catetoryList;  
+        } catch (error) {
+            console.log(method+" -->fail"+error);
+            return new Error(error);
+        }
+    }
         
 }
 
