@@ -63,7 +63,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Button trigger modal -->               
                 <div class="box-tools">
                   <form action="/private/products/product_statistic" method="POST"  id="searchProduct">
-                  <div class="input-group input-group-sm" style="width: 150px;">                        
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <div class="input-group-btn">
+                      <button type="submit" class="btn btn-primary">StatisticBy</button>
+                    </div>                        
                     <select class="form-control" name="categoryIDSearch" id="categorySeach">
                         <option value="0">--All--</option>
                         <%if(categories.length>0){
@@ -73,10 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           </option>
                           <%}
                           }%>
-                      </select>
-                    <div class="input-group-btn">
-                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
+                      </select>                    
                   </div>
                   </form>
                 </div>

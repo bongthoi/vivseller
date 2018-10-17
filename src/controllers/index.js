@@ -459,7 +459,7 @@ router.post("/private/products/product_statistic",isLoggedIn,async (req,res)=>{
 			chartMoneyData.push([product.name, product.quantity*product.cost_price]);
 		}
 		let data=await categoryService.inventory((req.session.user).username);
-		console.log("inventory="+JSON.stringify(data));
+		
 		res.render("dashboard/products/product_statistic", { title: "Product Statistic", products: productList, categories: cateList , chartQtyData: JSON.stringify(chartQtyData), chartMoneyData: JSON.stringify(chartMoneyData)});		
 	} catch (error) {
 		req.flash("error_message", "Product Statistic fail");
