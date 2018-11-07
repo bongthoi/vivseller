@@ -48,6 +48,10 @@ echo "# Updating package lists"
 sudo apt-add-repository -y ppa:git-core/ppa
 sudo apt-get update
 
+# Install Curl
+echo "# Installing Curl"
+sudo apt-get install -y curl
+
 # Install Git
 echo "# Installing Git"
 sudo apt-get install -y git
@@ -89,7 +93,8 @@ echo -n 'npm:            '
 npm --version
 echo -n 'Git:         '
 git --version
-
+echo -n 'Curl:           '
+curl --version
 
 # Print reminder of need to logout in order for these changes to take effect!
 echo ''
